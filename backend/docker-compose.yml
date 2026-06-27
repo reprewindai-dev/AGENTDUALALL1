@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: agent_duel_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secure_db_password_x402
+      POSTGRES_DB: agent_duel
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d agent_duel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent_duel_api
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:secure_db_password_x402@database:5432/agent_duel
+      - PORT=3000
+      - RUST_LOG=agent_duel_backend=info,tower_http=info,sqlx=warn
+    restart: always
+
+volumes:
+  pgdata:

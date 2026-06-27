@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Share Tech Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer utilities {
+  .animate-slide-in {
+    animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom terminal scanlines overlay */
+.scanlines-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: var(--scanline-display, block);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2.5px,
+    rgba(0, 0, 0, var(--scanline-opacity, 0.04)) 2.5px,
+    rgba(0, 0, 0, var(--scanline-opacity, 0.04)) 5px
+  );
+}
+

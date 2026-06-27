@@ -1,0 +1,6 @@
+{
+  "name": "Agent Duel",
+  "description": "High stakes agent-based cyber baccarat game with ultra-fine micropayment chip denominations (1¢ to $1+), featuring interactive card duels, standard tie multipliers (8:1), and a live automated M2M trading console with configurable clock speeds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
